@@ -5,12 +5,14 @@ import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
-@RestController
 
+@RestController
 public class AuthorController {
 
     @Autowired
@@ -37,6 +39,7 @@ public class AuthorController {
 
     @DeleteMapping("/{authorID}")
     public void deleteAuthor(@Valid @PathVariable ("authorID") Integer AuthorId) {
+
         service.deleteAuthor(AuthorId);
     }
 

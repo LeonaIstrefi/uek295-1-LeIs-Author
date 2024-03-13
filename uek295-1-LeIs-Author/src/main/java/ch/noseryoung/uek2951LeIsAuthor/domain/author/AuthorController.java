@@ -27,7 +27,7 @@ public class AuthorController {
         return ResponseEntity.ok().body(service.getAuthor(authorID));
     }
 
-    @PostMapping("/{authorID}")
+    @PostMapping("/")
     public ResponseEntity<Author> createAuthor(@RequestBody Author newauthor) throws InstanceAlreadyExistsException {
         return ResponseEntity.status(201).body(service.createAuthor(newauthor));
 

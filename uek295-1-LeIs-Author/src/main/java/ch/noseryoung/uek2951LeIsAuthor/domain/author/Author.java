@@ -14,10 +14,9 @@ import lombok.Setter;
 @Entity
 @Table (name = "author")
 public class Author {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "author_id")
     private Integer Id;
 

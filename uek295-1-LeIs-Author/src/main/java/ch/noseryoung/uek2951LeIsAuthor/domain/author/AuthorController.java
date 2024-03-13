@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RequestMapping("/author")
 @RestController
 public class AuthorController {
 
@@ -31,11 +31,13 @@ public class AuthorController {
     @PostMapping
     public void createAuthor(@Valid @RequestBody Author author) {
         service.createAuthor(author);
+
     }
 
     @PutMapping
-    public void updateAuthor(@Valid @PathVariable("authorID")int authroID, @RequestBody Author author) {
-        service.updateAuthor(authroID, author);
+    public void updateAuthor(@Valid @PathVariable("authorID")int authorID, @RequestBody Author author) {
+        service.updateAuthor(authorID, author);
+
     }
 
     @DeleteMapping("/{authorID}")

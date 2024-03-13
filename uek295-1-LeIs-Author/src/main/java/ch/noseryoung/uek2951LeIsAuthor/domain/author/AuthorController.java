@@ -16,6 +16,7 @@ import java.util.List;
 public class AuthorController {
 
     @Autowired
+    private AuthorService service;
 
     @GetMapping
     public ResponseEntity<List<Author>> getAuthor() {
@@ -29,7 +30,7 @@ public class AuthorController {
 
     @PostMapping
     public void createAuthor(@Valid @RequestBody Author author) {
-        service.createdAuthor(author);
+        service.createAuthor(author);
     }
 
     @PutMapping

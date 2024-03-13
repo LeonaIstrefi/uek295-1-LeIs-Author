@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 public class AuthorService {
 
@@ -14,8 +16,8 @@ public class AuthorService {
         return repository.findAll();
     }
 
-    public Author getAuthor(Integer authorID) {
-        return repository.findById(authorID).orElse(null);
+    public Author getAuthor(Integer authorID) throws AuthorNotFoundException {
+        return repository.findById(authorID).orElseThrow(() -> new AuthorNotFoundException("Couldn't find author"));
     }
 
     public Author createAuthor(Author author) {
@@ -26,8 +28,18 @@ public class AuthorService {
        return repository.save(author);
     }
 
-    public void deleteAuthor(Integer authorID) {
+    public void deleteAuthor(Integer authorID) throws NoSuchElementException {
         repository.deleteById(authorID);
+    }
+
+    public class AuthorNotFoundException extends Exception{
+        public AuthorNotFoundException(String message){
+            super(message);
+        }
+
+        public AuthorNotFoundException() {
+            super();
+        }
     }
 
 }

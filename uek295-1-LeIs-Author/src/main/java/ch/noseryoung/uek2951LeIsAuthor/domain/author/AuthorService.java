@@ -22,8 +22,8 @@ public class AuthorService {
         return repository.save(author);
     }
 
-    public void updateAuthor(int ID, Author author) {
-         repository.save(author);
+    public Author updateAuthor(int ID, Author author) {
+       return repository.save(author);
     }
 
     public void deleteAuthor(Integer authorID) {

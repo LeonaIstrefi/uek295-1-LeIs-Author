@@ -1,14 +1,13 @@
 package ch.noseryoung.uek2951LeIsAuthor.domain.author;
 
 
-import jakarta.validation.Valid;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 
 @RequestMapping("/author")
@@ -28,22 +27,23 @@ public class AuthorController {
         return ResponseEntity.ok().body(service.getAuthor(authorID));
     }
 
-    @PostMapping
-    public void createAuthor(@Valid @RequestBody Author author) {
-        service.createAuthor(author);
+    @PostMapping("/{authorID}")
+    public ResponseEntity<Author> createAuthor(@RequestBody Author newauthor) throws InstanceAlreadyExistsException {
+        return ResponseEntity.status(201).body(service.createAuthor(newauthor));
+
 
     }
 
-    @PutMapping
-    public void updateAuthor(@Valid @PathVariable("authorID")int authorID, @RequestBody Author author) {
-        service.updateAuthor(authorID, author);
+    @PutMapping("/{authorID}")
+    public ResponseEntity<Author> updateAuthor(@PathVariable("authorID")int authorID, @RequestBody Author author) throws InstanceNotFoundException {
+        return ResponseEntity.status(200).body(service.updateAuthor(authorID, author));
 
     }
 
     @DeleteMapping("/{authorID}")
-    public void deleteAuthor(@Valid @PathVariable ("authorID") Integer AuthorId) {
-
+    public String deleteAuthor(@PathVariable("authorID") Integer AuthorId) {
         service.deleteAuthor(AuthorId);
+        return "The id " + AuthorId + " has been deleted ";
     }
 
 }

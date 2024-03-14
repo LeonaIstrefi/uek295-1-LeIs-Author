@@ -25,14 +25,12 @@ VALUES (1, 1),
        (1, 2),
        (1, 3),
        (1, 4),
-       (2, 1);
+       (2, 2);
 
 INSERT INTO author_user (user_id, name, password, id_role)
 VALUES (1, 'Leona', '1234', 1),
-       (2, 'Max', '1234', 1),
-       (3, 'Aryan', '1234', 2),
-       (4, 'Naima', '1234', 2),
-       (5, 'Gabriel', '1234', 2);
+       (2, 'Max', '1234', 2);
+
 
 
 

@@ -10,24 +10,24 @@ VALUES ('Ana Huang', '7. March 1991', 'www.Ana Huang/author.com' ),
        ('Sarah J. Maas','5. March 1986', 'www.Sarah J. Maas/author.com'),
        ('Rick Riordan', '5. June 1964','www.Rick Riordan/author.com' );
 
-INSERT INTO role (role_id, role_name)
+INSERT INTO role (role_id, name)
 VALUES (1, 'ADMIN'),
        (2, 'USER');
 
-INSERT INTO authority (authority_id, authority_name)
+INSERT INTO authority (authority_id, name)
 VALUES (1, 'CREATE'),
        (2, 'READ'),
        (3, 'UPDATE'),
        (4, 'DELETE');
 
-INSERT INTO role_authority (id_role, id_authority)
+INSERT INTO author_role_authority (role_id, authority_id)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
        (1, 4),
        (2, 1);
 
-INSERT INTO users (user_id, username, password, user_role)
+INSERT INTO author_user (user_id, name, password, role)
 VALUES (1, 'Leona', '1234', 1),
        (2, 'Max', '1234', 1),
        (3, 'Aryan', '1234', 2),

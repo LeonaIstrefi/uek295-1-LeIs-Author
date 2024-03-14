@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
     public record UserDetailsImpl(User user) implements UserDetails {
         @Override // Takes values from parentclass
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return user.getUserRole().getAuthoritySet().stream()
+            return user.getRole().getAuthoritySet().stream()
                     .map(a -> new SimpleGrantedAuthority(a.getName()))
                     .toList();
         }

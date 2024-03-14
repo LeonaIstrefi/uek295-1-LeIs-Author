@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequestMapping("/author")
 @RestController
@@ -24,7 +25,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('READ')")
     @Operation(summary = "get all Authors",
             description = "With this endpoint you get all Authors")
-    public ResponseEntity<List<Author>> getAuthor() {
+    public ResponseEntity<List<Author>> getAuthor()  {
         return ResponseEntity.ok().body(service.getAuthors());
     }
 
@@ -32,7 +33,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('READ')")
     @Operation(summary = "get one specific Auther by id",
             description = "With this endpoint, you get one specific Author by id")
-    public ResponseEntity<Author> readAuthor(@PathVariable("authorID") Integer authorID) throws AuthorNotFoundException, AuthorService.AuthorNotFoundException {
+    public ResponseEntity<Author> readAuthor(@PathVariable("authorID") Integer authorID) throws AuthorNotFoundException, InstanceNotFoundException, AuthorService.AuthorNotFoundException {
         return ResponseEntity.ok().body(service.getAuthor(authorID));
     }
 
@@ -59,7 +60,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('DELETE')")
     @Operation(summary = "Delete Author",
             description = "Deletes Auther by id")
-    public String deleteAuthor(@Valid @PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException {
+    public String deleteAuthor(@Valid @PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException, NoSuchElementException{
         service.deleteAuthor(AuthorId);
         return "The id " + AuthorId + " has been deleted ";
     }
@@ -74,9 +75,31 @@ public class AuthorController {
         }
     }
 
-    @ExceptionHandler(AuthorNotFoundException.class)
-    public ResponseEntity<String> handleNoSuchElementException(AuthorNotFoundException pnfe) {
-        return ResponseEntity.status(404).body(pnfe.getMessage());
+    @ExceptionHandler(AuthorService.AuthorNotFoundException.class)
+    public ResponseEntity<String> handleAuthorServiceAuthorNotFoundException(AuthorService.AuthorNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
     }
+
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<String> handleAuthorNotFoundException(AuthorNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InstanceNotFoundException.class)
+    public ResponseEntity<String> handleInstanceNotFoundException(InstanceNotFoundException e){
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> hanldeNoSuchElementException(NoSuchElementException e){
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InstanceAlreadyExistsException.class)
+    public ResponseEntity<String> handleInstanceAlreadyExistsException(InstanceAlreadyExistsException e){
+        return ResponseEntity.status(401).body(e.getMessage());
+    }
+
+
 
 }

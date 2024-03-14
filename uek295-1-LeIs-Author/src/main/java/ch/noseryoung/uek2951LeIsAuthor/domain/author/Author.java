@@ -3,6 +3,7 @@ package ch.noseryoung.uek2951LeIsAuthor.domain.author;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Author {
     private Integer Id;
 
     @Column(name = "name")
+    @Size (min = 6, max = 50)
     private String Name;
 
     @Column(name = "birthday")

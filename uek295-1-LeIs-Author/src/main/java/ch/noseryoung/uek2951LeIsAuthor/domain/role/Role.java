@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "role")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name = "role_id")
     private int id;
 
@@ -27,10 +27,13 @@ public class Role {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_role_authority",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+            joinColumns = {
+                    @JoinColumn(name = "id_role", referencedColumnName = "role_id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "id_authority", referencedColumnName = "authority_id")
+            }
+    )
     private Set<Authority> authoritySet;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
 }

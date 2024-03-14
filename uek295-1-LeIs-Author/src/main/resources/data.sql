@@ -20,14 +20,14 @@ VALUES (1, 'CREATE'),
        (3, 'UPDATE'),
        (4, 'DELETE');
 
-INSERT INTO author_role_authority (role_id, authority_id)
+INSERT INTO author_role_authority (id_role, id_authority)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
        (1, 4),
        (2, 1);
 
-INSERT INTO author_user (user_id, name, password, role)
+INSERT INTO author_user (user_id, name, password, id_role)
 VALUES (1, 'Leona', '1234', 1),
        (2, 'Max', '1234', 1),
        (3, 'Aryan', '1234', 2),

@@ -2,6 +2,7 @@ package ch.noseryoung.uek2951LeIsAuthor.domain.author;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +40,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('CREATE')")
     @Operation(summary = "create Author",
             description = "Creates a new Author")
-    public ResponseEntity<Author> createAuthor(@RequestBody Author newauthor) throws InstanceAlreadyExistsException {
+    public ResponseEntity<Author> createAuthor(@Valid @RequestBody Author newauthor) throws InstanceAlreadyExistsException {
         return ResponseEntity.status(201).body(service.createAuthor(newauthor));
 
 
@@ -49,7 +50,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('UPDATE')")
     @Operation(summary = "updates Authors",
             description = "It updates Authors by id")
-    public ResponseEntity<Author> updateAuthor(@PathVariable("authorID")int authorID, @RequestBody Author author) throws InstanceNotFoundException {
+    public ResponseEntity<Author> updateAuthor(@Valid @PathVariable("authorID")int authorID, @RequestBody Author author) throws InstanceNotFoundException {
         return ResponseEntity.status(200).body(service.updateAuthor(authorID, author));
 
     }
@@ -58,7 +59,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('DELETE')")
     @Operation(summary = "Delete Author",
             description = "Deletes Auther by id")
-    public String deleteAuthor(@PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException {
+    public String deleteAuthor(@Valid @PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException {
         service.deleteAuthor(AuthorId);
         return "The id " + AuthorId + " has been deleted ";
     }

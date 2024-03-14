@@ -31,7 +31,7 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('READ')")
     @Operation(summary = "get one specific Auther by id",
             description = "With this endpoint, you get one specific Author by id")
-    public ResponseEntity<Author> readAuthor(@PathVariable("authorID") Integer authorID) throws AuthorNotFoundException {
+    public ResponseEntity<Author> readAuthor(@PathVariable("authorID") Integer authorID) throws AuthorNotFoundException, AuthorService.AuthorNotFoundException {
         return ResponseEntity.ok().body(service.getAuthor(authorID));
     }
 

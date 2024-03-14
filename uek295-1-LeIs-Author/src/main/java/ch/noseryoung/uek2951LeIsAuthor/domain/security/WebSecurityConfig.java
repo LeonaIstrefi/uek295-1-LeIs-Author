@@ -27,7 +27,7 @@ public class WebSecurityConfig {
     private UserService userService;
 
     @Autowired
-    private MyPasswordEncoder myPasswordEncoder;
+    private PasswordEncoder myPasswordEncoder;
 
     @Bean
     public AuthenticationManager authenticationManager() {

@@ -3,6 +3,7 @@ package ch.noseryoung.uek2951LeIsAuthor.domain.author;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public class Author {
 
     @Id
+    @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
     private Integer Id;

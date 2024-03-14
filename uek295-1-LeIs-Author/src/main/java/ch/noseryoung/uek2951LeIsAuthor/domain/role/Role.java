@@ -2,11 +2,13 @@ package ch.noseryoung.uek2951LeIsAuthor.domain.role;
 
 
 import ch.noseryoung.uek2951LeIsAuthor.domain.authority.Authority;
+import ch.noseryoung.uek2951LeIsAuthor.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +27,10 @@ public class Role {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_role_authority",
-            joinColumns = @JoinColumn(name = "id_role", referencedColumnName = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "id_authority", referencedColumnName = "authority_id"))
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authoritySet;
+
+    @OneToMany(mappedBy = "role")
+    private Set<User> users;
 }

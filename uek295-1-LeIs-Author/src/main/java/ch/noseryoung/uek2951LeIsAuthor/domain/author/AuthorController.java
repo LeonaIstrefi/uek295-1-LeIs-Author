@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,9 +61,8 @@ public class AuthorController {
     @PreAuthorize("hasAuthority('DELETE')")
     @Operation(summary = "Delete Author",
             description = "Deletes Auther by id")
-    public String deleteAuthor(@Valid @PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException, NoSuchElementException{
+    public void deleteAuthor(@Valid @PathVariable("authorID") Integer AuthorId) throws AuthorNotFoundException, InstanceNotFoundException {
         service.deleteAuthor(AuthorId);
-        return "The id " + AuthorId + " has been deleted ";
     }
 
     public class AuthorNotFoundException extends Exception{
@@ -97,8 +97,17 @@ public class AuthorController {
 
     @ExceptionHandler(InstanceAlreadyExistsException.class)
     public ResponseEntity<String> handleInstanceAlreadyExistsException(InstanceAlreadyExistsException e){
-        return ResponseEntity.status(401).body(e.getMessage());
+        return ResponseEntity.status(400).body(e.getMessage());
     }
+
+    @ExceptionHandler(AuthorController.AuthorNotFoundException.class)
+    public ResponseEntity<String> handleAuthorControllerAuthorNotFoundException(AuthorController.AuthorNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+
+
+
+
 
 
 
